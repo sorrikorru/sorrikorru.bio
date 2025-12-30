@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодняя биография</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a2e38 0%, #1a1a2e 50%, #16213e 100%);
+            color: #f0f8ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Снежинки */
+        .snowflake {
+            position: fixed;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Шапка */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .header-content {
+            background: rgba(0, 20, 40, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #0cf;
+            box-shadow: 0 0 30px rgba(0, 204, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0055, #00ccff, #00ff99, #ffcc00);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ffcc00, #00ff99, #00ccff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a0e7ff;
+            margin-bottom: 20px;
+        }
+        
+        /* Кнопка управления музыкой */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .music-btn {
+            background: rgba(0, 20, 40, 0.8);
+            border: 2px solid #0cf;
+            color: #0cf;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+        }
+        
+        .music-btn:hover {
+            background: rgba(0, 40, 80, 0.9);
+            transform: scale(1.1);
+        }
+        
+        /* Основное содержание */
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Блоки */
+        .card {
+            background: rgba(0, 20, 40, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .about-card {
+            border-color: #00ff99;
+        }
+        
+        .about-card::before {
+            background: linear-gradient(to right, #00ff99, #00ccff);
+        }
+        
+        .hobbies-card {
+            border-color: #00ccff;
+        }
+        
+        .hobbies-card::before {
+            background: linear-gradient(to right, #00ccff, #ff0055);
+        }
+        
+        .skills-card {
+            border-color: #ffcc00;
+        }
+        
+        .skills-card::before {
+            background: linear-gradient(to right, #ffcc00, #ff0055);
+        }
+        
+        .contact-card {
+            border-color: #ff0055;
+        }
+        
+        .contact-card::before {
+            background: linear-gradient(to right, #ff0055, #00ff99);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #a0e7ff;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 15px;
+            color: #ffcc00;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        li:before {
+            content: '🎄';
+            position: absolute;
+            left: 0;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .skill {
+            background: rgba(0, 204, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #00ccff;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #a0e7ff;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .contact-link i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: #ffcc00;
+        }
+        
+        /* Новогодние украшения */
+        .decoration {
+            position: absolute;
+            z-index: 1;
+            font-size: 2rem;
+        }
+        
+        .tree {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 5rem;
+            color: #0a5;
+            z-index: 1;
+            animation: sway 3s infinite alternate ease-in-out;
+        }
+        
+        .gift {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            font-size: 4rem;
+            color: #f00;
+            z-index: 1;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes sway {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(0, 204, 255, 0.3);
+            margin-top: 40px;
+            color: #a0e7ff;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .new-year-text {
+            font-size: 1.5rem;
+            color: #ffcc00;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .tree, .gift {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div id="snowflakes"></div>
+    
+    <!-- Кнопка управления музыкой -->
+    <div class="music-control">
+        <button class="music-btn" id="musicBtn">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+    
+    <!-- Новогодние украшения -->
+    <div class="tree">🎄</div>
+    <div class="gift">🎁</div>
+    
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="header-content">
+                <h1>Алексей Новогодний</h1>
+                <p class="subtitle">Веб-разработчик & Новогодний энтузиаст</p>
+                <p>Добро пожаловать на мой новогодний сайт-биографию! Здесь я расскажу о себе, своих увлечениях и навыках в праздничной атмосфере.</p>
+            </div>
+        </header>
+        
+        <!-- Основное содержание -->
+        <main>
+            <section class="card about-card">
+                <h2><i class="fas fa-user"></i> Обо мне</h2>
+                <p>Привет! Меня зовут Алексей, и я веб-разработчик с 5-летним опытом работы. Я обожаю создавать красивые и функциональные веб-сайты, которые приносят пользу людям.</p>
+                <p>Родился и вырос в Москве, но мечтаю работать в международной компании над глобальными проектами. Люблю учиться новому и постоянно совершенствую свои навыки.</p>
+                <p>В свободное время увлекаюсь зимними видами спорта, особенно люблю кататься на лыжах в новогодние праздники.</p>
+            </section>
+            
+            <section class="card hobbies-card">
+                <h2><i class="fas fa-snowflake"></i> Мои увлечения</h2>
+                <ul>
+                    <li>Веб-разработка и дизайн</li>
+                    <li>Зимние виды спорта: лыжи, сноуборд</li>
+                    <li>Фотография зимних пейзажей</li>
+                    <li>Создание новогодних украшений своими руками</li>
+                    <li>Путешествия по зимним городам</li>
+                    <li>Игра на гитаре у камина</li>
+                    <li>Готовка праздничных блюд</li>
+                </ul>
+            </section>
+            
+            <section class="card skills-card">
+                <h2><i class="fas fa-code"></i> Навыки</h2>
+                <p>За годы работы я освоил множество технологий и инструментов:</p>
+                <div class="skills-list">
+                    <div class="skill">HTML5 & CSS3</div>
+                    <div class="skill">JavaScript</div>
+                    <div class="skill">React</div>
+                    <div class="skill">Node.js</div>
+                    <div class="skill">PHP</div>
+                    <div class="skill">MySQL</div>
+                    <div class="skill">Git</div>
+                    <div class="skill">Figma</div>
+                    <div class="skill">Адаптивный дизайн</div>
+                    <div class="skill">SEO оптимизация</div>
+                </div>
+            </section>
+            
+            <section class="card contact-card">
+                <h2><i class="fas fa-address-book"></i> Контакты</h2>
+                <p>Если хотите связаться со мной для сотрудничества или просто поздравить с Новым годом, вот мои контакты:</p>
+                <div class="contact-links">
+                    <a href="mailto:alexey@example.com" class="contact-link">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://github.com/alexey" class="contact-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/alexey" class="contact-link" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://t.me/alexey" class="contact-link" target="_blank">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                </div>
+                <p style="margin-top: 20px;">Буду рад новым знакомствам и интересным проектам!</p>
+            </section>
+        </main>
+        
+        <!-- Подвал -->
+        <footer>
+            <p>© 2023 Алексей Новогодний. Все права защищены.</p>
+            <p class="new-year-text">С наступающим Новым Годом и Рождеством! 🎄✨</p>
+        </footer>
+    </div>
+    
+    <!-- Аудио для фоновой музыки -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-jingle-bells-311.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // Случайный размер
+                const size = Math.random() * 10 + 5;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                // Случайная позиция
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.top = `${Math.random() * 100}vh`;
+                
+                // Случайная прозрачность
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                // Случайная скорость анимации
+                const duration = Math.random() * 10 + 10;
+                snowflake.style.animation = `fall ${duration}s linear infinite`;
+                
+                // Добавление стилей анимации
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fall {
+                        0% {
+                            transform: translateY(-100px) rotate(0deg);
+                        }
+                        100% {
+                            transform: translateY(100vh) rotate(360deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Управление музыкой
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+        
+        // Попытка автоматического воспроизведения с задержкой
+        setTimeout(() => {
+            bgMusic.volume = 0.3;
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }).catch(() => {
+                    isPlaying = false;
+                    musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                });
+            }
+        }, 1000);
+        
+        // Обработчик клика по кнопке
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // Создание новогодних украшений
+        function createDecorations() {
+            const decorations = ['❄️', '🎅', '🦌', '⭐', '🔔', '🎀', '🧦', '🕯️'];
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 15; i++) {
+                const decoration = document.createElement('div');
+                decoration.classList.add('decoration');
+                decoration.innerHTML = decorations[Math.floor(Math.random() * decorations.length)];
+                
+                // Случайная позиция
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                decoration.style.top = `${top}%`;
+                decoration.style.left = `${left}%`;
+                
+                // Случайный размер
+                const size = Math.random() * 30 + 20;
+                decoration.style.fontSize = `${size}px`;
+                
+                // Случайная анимация
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 2;
+                decoration.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
+                
+                // Добавление стилей анимации
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes float {
+                        0% {
+                            transform: translateY(0) rotate(0deg);
+                        }
+                        100% {
+                            transform: translateY(-20px) rotate(10deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                container.appendChild(decoration);
+            }
+        }
+        
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            createDecorations();
+        });
+    </script>
+</body>
+</html>
