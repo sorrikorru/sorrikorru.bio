@@ -3,645 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новогоднее Био | P0n4ek</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Сервер | Скоро открытие</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --christmas-red: #c62828;
-            --christmas-green: #2e7d32;
-            --christmas-gold: #ffd600;
-            --snow-white: #f8f9fa;
-            --dark-green: #1b5e20;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0c3b1e 0%, #1a472a 50%, #0c3b1e 100%);
-            color: var(--snow-white);
+            background: linear-gradient(135deg, #0b0f1c, #1a1f2f);
+            color: #e0e0e0;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Снегопад */
-        #snow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .snowflake {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            opacity: 0.8;
-        }
-
-        /* Главный контейнер */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Шапка */
+        /* Шапка и меню */
         header {
-            text-align: center;
-            padding: 40px 0 30px;
-            position: relative;
-        }
-
-        .holiday-header {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 3.5rem;
-            color: var(--christmas-gold);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            animation: glow 3s infinite alternate;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        /* Новогодние украшения */
-        .ornament {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 1;
-        }
-
-        .ornament-1 {
-            top: 20px;
-            left: 10%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23c62828" stroke="%23ffd600" stroke-width="3"/><circle cx="50" cy="50" r="25" fill="%232e7d32"/><circle cx="50" cy="50" r="10" fill="%23ffd600"/></svg>');
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .ornament-2 {
-            top: 10px;
-            right: 15%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%232e7d32" stroke="%23ffd600" stroke-width="3"/><circle cx="50" cy="50" r="25" fill="%23c62828"/><circle cx="50" cy="50" r="10" fill="%23ffd600"/></svg>');
-            animation: float 8s infinite ease-in-out reverse;
-        }
-
-        .ornament-3 {
-            bottom: 30px;
-            left: 15%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23ffd600" stroke="%23c62828" stroke-width="3"/><circle cx="50" cy="50" r="25" fill="%232e7d32"/><circle cx="50" cy="50" r="10" fill="%23c62828"/></svg>');
-            animation: float 7s infinite ease-in-out;
-        }
-
-        /* Основное содержимое */
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: rgba(30, 70, 40, 0.8);
-            border-radius: 20px;
-            padding: 30px;
-            flex: 1;
-            min-width: 300px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--christmas-gold);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--christmas-red), var(--christmas-gold), var(--christmas-green));
-        }
-
-        .card-title {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 2rem;
-            color: var(--christmas-gold);
-            margin-bottom: 20px;
+            padding: 20px 5%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #2c3142;
         }
 
-        .card-title i {
+        .logo {
             font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #6a5acd, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .info-item {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
 
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: var(--christmas-gold);
+        nav ul li a {
+            color: #b0b8d0;
+            text-decoration: none;
+            font-weight: 500;
             font-size: 1.1rem;
-            margin-bottom: 5px;
+            transition: color 0.3s;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+            border-bottom-color: #6a5acd;
+        }
+
+        /* Основной контент */
+        main {
+            flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
         }
 
-        .info-value {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #e0e0e0;
+        .server-status {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        .server-icon {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px #6a5acd);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #a0a0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .coming-soon {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #b0c0ff;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #a0a8c0;
+        }
+
+        .progress-bar {
+            width: 80%;
+            max-width: 600px;
+            height: 12px;
+            background: #2a2e40;
+            border-radius: 30px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, #6a5acd, #00bfff);
+            border-radius: 30px;
+            box-shadow: 0 0 15px #6a5acd;
+        }
+
+        .info-text {
+            font-size: 1.2rem;
+            color: #7e85a0;
             margin-top: 10px;
         }
 
-        .tag {
-            background: rgba(198, 40, 40, 0.2);
-            border: 1px solid var(--christmas-red);
+        /* Кнопка уведомления (заглушка) */
+        .notify-btn {
+            background: transparent;
+            border: 2px solid #6a5acd;
+            color: #6a5acd;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 50px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .tag:hover {
-            background: var(--christmas-red);
-            transform: scale(1.05);
-        }
-
-        /* Панель управления */
-        .controls {
-            background: rgba(30, 70, 40, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-            border: 2px solid var(--christmas-gold);
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 600;
+            margin-top: 30px;
+            background: rgba(106, 90, 205, 0.05);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--christmas-red), #e53935);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--christmas-green), #43a047);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:active {
-            transform: translateY(-2px);
-        }
-
-        /* Анимации */
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-            }
-            100% {
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.5);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(10deg);
-            }
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* Елочные иголки */
-        .tree-branch {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><path d="M150,20 L280,150 L250,150 L150,50 L50,150 L20,150 Z" fill="%231b5e20" opacity="0.3"/></svg>');
-            background-repeat: no-repeat;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .tree-branch-1 {
-            top: -50px;
-            left: -100px;
-            transform: rotate(15deg);
-        }
-
-        .tree-branch-2 {
-            bottom: -50px;
-            right: -100px;
-            transform: rotate(195deg);
+        .notify-btn:hover {
+            background: #6a5acd;
+            color: #ffffff;
+            box-shadow: 0 0 25px #6a5acd;
         }
 
         /* Футер */
         footer {
+            padding: 25px 5%;
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #b0b0b0;
+            border-top: 1px solid #2c3142;
+            color: #6a7190;
+            font-size: 0.95rem;
         }
 
-        .new-year-text {
-            font-family: 'Mountains of Christmas', cursive;
-            font-size: 1.5rem;
-            color: var(--christmas-gold);
+        .dns-badge {
+            display: inline-block;
             margin-top: 10px;
-            animation: twinkle 2s infinite;
+            background: #2a2e40;
+            padding: 5px 15px;
+            border-radius: 30px;
+            color: #b0b8d0;
+            font-size: 0.9rem;
+        }
+
+        .dns-badge i {
+            color: #f6821f; /* цвет cloudflare */
+            margin-right: 5px;
         }
 
         /* Адаптивность */
         @media (max-width: 768px) {
-            .holiday-header {
-                font-size: 2.5rem;
-            }
-            
-            .content {
-                flex-direction: column;
-            }
-            
-            .controls {
+            header {
                 flex-direction: column;
                 gap: 15px;
             }
-            
-            .ornament {
-                display: none;
+
+            nav ul {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .coming-soon {
+                font-size: 1.5rem;
+            }
+
+            .description {
+                font-size: 1.1rem;
+            }
+
+            .server-icon {
+                font-size: 6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.3rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Контейнер для снега -->
-    <div id="snow-container"></div>
-    
-    <!-- Елочные ветки для украшения -->
-    <div class="tree-branch tree-branch-1"></div>
-    <div class="tree-branch tree-branch-2"></div>
-    
-    <!-- Новогодние украшения -->
-    <div class="ornament ornament-1"></div>
-    <div class="ornament ornament-2"></div>
-    <div class="ornament ornament-3"></div>
-    
-    <div class="container">
-        <header>
-            <h1 class="holiday-header">🎄 Новогоднее Био P0n4ek 🎅</h1>
-            <p class="subtitle">Встречаем Новый год вместе! Узнай больше обо мне в праздничной атмосфере</p>
-        </header>
-        
-        <div class="content">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-user"></i> Обо мне</h2>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-signature"></i> Имя</div>
-                    <div class="info-value">P0n4ek (Алексей)</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-map-marker-alt"></i> Местоположение</div>
-                    <div class="info-value">Россия, Иркутск (GMT+8)</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-briefcase"></i> Род деятельности</div>
-                    <div class="info-value">Full-stack разработчик, специалист по кибербезопасности</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-graduation-cap"></i> Образование</div>
-                    <div class="info-value">Высшее техническое образование, курсы по кибербезопасности</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-heart"></i> Интересы</div>
-                    <div class="info-value">Программирование, reverse engineering, анализ уязвимостей, новогодние традиции</div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-laptop-code"></i> Навыки и технологии</h2>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-code"></i> Языки программирования</div>
-                    <div class="info-value">JavaScript, Python, C++, HTML/CSS, SQL, Bash</div>
-                    <div class="tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">HTML/CSS</span>
-                    </div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-shield-alt"></i> Кибербезопасность</div>
-                    <div class="info-value">Pentesting, анализ вредоносного ПО, безопасность веб-приложений</div>
-                    <div class="tags">
-                        <span class="tag">Burp Suite</span>
-                        <span class="tag">Wireshark</span>
-                        <span class="tag">Metasploit</span>
-                        <span class="tag">IDA Pro</span>
-                    </div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-tools"></i> Инструменты</div>
-                    <div class="info-value">Git, Docker, Linux, VS Code, Figma, Postman</div>
-                    <div class="tags">
-                        <span class="tag">Git</span>
-                        <span class="tag">Docker</span>
-                        <span class="tag">Linux</span>
-                        <span class="tag">VS Code</span>
-                    </div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-globe"></i> Проекты</div>
-                    <div class="info-value">Разработка безопасных веб-приложений, исследование уязвимостей, CTF-соревнования</div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-holly-berry"></i> Новогодние планы</h2>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-tree"></i> Традиции</div>
-                    <div class="info-value">Украшение ёлки, приготовление оливье, просмотр новогодних фильмов</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-gifts"></i> Пожелания на 2024</div>
-                    <div class="info-value">Освоить новые технологии, участвовать в интересных проектах, путешествовать</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-mug-hot"></i> Любимые новогодние фильмы</div>
-                    <div class="info-value">"Один дома", "Ирония судьбы", "Ёлки", "Крепкий орешек"</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-music"></i> Новогоднее настроение</div>
-                    <div class="info-value">Люблю атмосферу ожидания праздника, огни гирлянд и запах мандаринов</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label"><i class="fas fa-star"></i> Цели на следующий год</div>
-                    <div class="info-value">Углубить знания в области DevSecOps, изучить Rust, внести вклад в open-source проекты</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="controls">
-            <button id="toggleSnowBtn" class="btn btn-primary">
-                <i class="fas fa-snowflake"></i> Выключить снег
-            </button>
-            
-            <button id="toggleMusicBtn" class="btn btn-secondary">
-                <i class="fas fa-play"></i> Включить музыку
-            </button>
-            
-            <button id="changeThemeBtn" class="btn btn-primary">
-                <i class="fas fa-palette"></i> Сменить тему
-            </button>
-        </div>
-        
-        <footer>
-            <p>Создано с ❤️ и новогодним настроением | P0n4ek © 2023-2024</p>
-            <p class="new-year-text">С наступающим Новым годом! Пусть он принесёт удачу и новые достижения! 🎁</p>
-        </footer>
-    </div>
-    
-    <!-- Аудио для фоновой музыки -->
-    <audio id="bgMusic" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-christmas-is-coming-1121.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
-    </audio>
+    <header>
+        <div class="logo">⚡ SERVER NODE</div>
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О сервере</a></li>
+                <li><a href="#">Новости</a></li>
+                <li><a href="#">Поддержка</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main>
+        <div class="server-status">
+            <div class="server-icon">🖥️</div>
+            <h1>СЕРВЕР ГОТОВИТСЯ</h1>
+            <div class="coming-soon">Скоро открытие!</div>
+            <div class="description">
+                Мы проводим финальные технические работы и настраиваем оборудование. 
+                Уже совсем скоро сервер начнёт приём подключений.
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="info-text">Примерная готовность: 75% · Осталось несколько дней</div>
+            
+            <!-- Заглушка для демонстрации обратной связи -->
+            <button class="notify-btn" onclick="alert('Мы сообщим вам об открытии! (функция временно недоступна)')">Уведомить меня</button>
+        </div>
+    </main>
+
+    <footer>
+        <div>© 2025 Server Node. Все права защищены.</div>
+        <div class="dns-badge">
+            <i>🌐</i> DNS защищён Cloudflare · стабильность и безопасность
+        </div>
+    </footer>
+
+    <!-- Небольшой скрипт для демонстрации работы меню (ссылки ведут на #, но можно добавить поведение) -->
     <script>
-        // Элементы управления
-        const snowContainer = document.getElementById('snow-container');
-        const toggleSnowBtn = document.getElementById('toggleSnowBtn');
-        const toggleMusicBtn = document.getElementById('toggleMusicBtn');
-        const changeThemeBtn = document.getElementById('changeThemeBtn');
-        const bgMusic = document.getElementById('bgMusic');
-        
-        let snowEnabled = true;
-        let musicEnabled = false;
-        let currentTheme = 'christmas';
-        
-        // Создание снежинок
-        function createSnowflakes() {
-            // Очищаем контейнер если снег отключен
-            if (!snowEnabled) {
-                snowContainer.innerHTML = '';
-                return;
-            }
-            
-            // Создаем 50 снежинок
-            for (let i = 0; i < 50; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                
-                // Размер снежинки
-                const size = Math.random() * 10 + 5;
-                snowflake.style.width = `${size}px`;
-                snowflake.style.height = `${size}px`;
-                
-                // Начальная позиция
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.top = `-10px`;
-                
-                // Скорость падения
-                const fallSpeed = Math.random() * 3 + 2;
-                const swaySpeed = Math.random() * 5 + 2;
-                const swayDistance = Math.random() * 50 + 20;
-                
-                // Анимация падения
-                snowflake.animate([
-                    { transform: `translate(0, 0) rotate(0deg)`, opacity: 0.8 },
-                    { transform: `translate(${swayDistance}px, 100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 3000 + 5000,
-                    delay: Math.random() * 5000,
-                    iterations: Infinity
-                });
-                
-                snowContainer.appendChild(snowflake);
-            }
-        }
-        
-        // Переключение снега
-        toggleSnowBtn.addEventListener('click', () => {
-            snowEnabled = !snowEnabled;
-            
-            if (snowEnabled) {
-                toggleSnowBtn.innerHTML = '<i class="fas fa-snowflake"></i> Выключить снег';
-                createSnowflakes();
-            } else {
-                toggleSnowBtn.innerHTML = '<i class="fas fa-snowflake"></i> Включить снег';
-                snowContainer.innerHTML = '';
-            }
-        });
-        
-        // Переключение музыки
-        toggleMusicBtn.addEventListener('click', () => {
-            musicEnabled = !musicEnabled;
-            
-            if (musicEnabled) {
-                toggleMusicBtn.innerHTML = '<i class="fas fa-pause"></i> Выключить музыку';
-                bgMusic.play().catch(e => {
-                    console.log("Автовоспроизведение заблокировано, нажмите на кнопку еще раз");
-                    // Если автовоспроизведение заблокировано, показываем сообщение
-                    if (e.name === "NotAllowedError") {
-                        alert("Для воспроизведения музыки нажмите на кнопку еще раз после этого сообщения.");
-                    }
-                });
-            } else {
-                toggleMusicBtn.innerHTML = '<i class="fas fa-play"></i> Включить музыку';
-                bgMusic.pause();
-            }
-        });
-        
-        // Смена темы
-        changeThemeBtn.addEventListener('click', () => {
-            const body = document.body;
-            const cards = document.querySelectorAll('.card');
-            const controls = document.querySelector('.controls');
-            
-            if (currentTheme === 'christmas') {
-                // Меняем на синюю зимнюю тему
-                body.style.background = 'linear-gradient(135deg, #0c1b3b 0%, #1a2b5c 50%, #0c1b3b 100%)';
-                
-                cards.forEach(card => {
-                    card.style.background = 'rgba(30, 40, 70, 0.8)';
-                    card.style.borderColor = '#4fc3f7';
-                });
-                
-                controls.style.background = 'rgba(30, 40, 70, 0.8)';
-                controls.style.borderColor = '#4fc3f7';
-                
-                document.querySelector('.holiday-header').style.color = '#4fc3f7';
-                document.querySelector('.holiday-header').style.textShadow = '0 0 15px rgba(79, 195, 247, 0.7)';
-                
-                document.documentElement.style.setProperty('--christmas-red', '#1565c0');
-                document.documentElement.style.setProperty('--christmas-green', '#0277bd');
-                document.documentElement.style.setProperty('--christmas-gold', '#4fc3f7');
-                
-                currentTheme = 'winter';
-                changeThemeBtn.innerHTML = '<i class="fas fa-palette"></i> Вернуть новогоднюю тему';
-                
-            } else {
-                // Возвращаем новогоднюю тему
-                body.style.background = 'linear-gradient(135deg, #0c3b1e 0%, #1a472a 50%, #0c3b1e 100%)';
-                
-                cards.forEach(card => {
-                    card.style.background = 'rgba(30, 70, 40, 0.8)';
-                    card.style.borderColor = '#ffd600';
-                });
-                
-                controls.style.background = 'rgba(30, 70, 40, 0.8)';
-                controls.style.borderColor = '#ffd600';
-                
-                document.querySelector('.holiday-header').style.color = '#ffd600';
-                document.querySelector('.holiday-header').style.textShadow = '0 0 15px rgba(255, 215, 0, 0.7)';
-                
-                document.documentElement.style.setProperty('--christmas-red', '#c62828');
-                document.documentElement.style.setProperty('--christmas-green', '#2e7d32');
-                document.documentElement.style.setProperty('--christmas-gold', '#ffd600');
-                
-                currentTheme = 'christmas';
-                changeThemeBtn.innerHTML = '<i class="fas fa-palette"></i> Сменить тему';
-            }
-        });
-        
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', () => {
-            createSnowflakes();
-            
-            // Периодически добавляем новые снежинки
-            setInterval(() => {
-                if (snowEnabled && document.querySelectorAll('.snowflake').length < 30) {
-                    createSnowflakes();
-                }
-            }, 5000);
+        // Для красоты: при клике на пункты меню показываем сообщение, что раздел временно недоступен.
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Этот раздел появится после открытия сервера. Следите за обновлениями!');
+            });
         });
     </script>
 </body>
