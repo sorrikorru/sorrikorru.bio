@@ -1068,39 +1068,7 @@ function Lib:Destroy()
     Gui:Destroy()
 end
 
-return Lib
-
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local UIS = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-
-local C = {
-    win = Color3.fromRGB(13, 15, 20),
-    sidebar = Color3.fromRGB(10, 11, 16),
-    card = Color3.fromRGB(20, 22, 30),
-    cardHov = Color3.fromRGB(26, 29, 40),
-    item = Color3.fromRGB(17, 19, 26),
-    itemHov = Color3.fromRGB(24, 27, 37),
-    border = Color3.fromRGB(38, 42, 58),
-    accent = Color3.fromRGB(124, 111, 247),
-    accentHov = Color3.fromRGB(150, 138, 255),
-    accentDim = Color3.fromRGB(80, 70, 180),
-    txt = Color3.fromRGB(228, 228, 240),
-    txtDim = Color3.fromRGB(110, 115, 140),
-    txtMid = Color3.fromRGB(170, 172, 195),
-    red = Color3.fromRGB(220, 60, 60),
-    redHov = Color3.fromRGB(245, 80, 80),
-    green = Color3.fromRGB(72, 199, 142),
-    trackOff = Color3.fromRGB(45, 48, 65),
-    white = Color3.new(1, 1, 1),
-}
-
--- ВСЕ ТВОИ ФУНКЦИИ МЕНЮ (corner, stroke, pad, vlist, label и т.д.)
--- (я не буду их тут переписывать, они у тебя уже есть)
-
--- ТЕЛЕПОРТАЦИЯ
+-- ========== ТЕЛЕПОРТАЦИЯ ==========
 local activeTeleportTasks = {}
 local function stopTeleportForWorld(worldName)
     if activeTeleportTasks[worldName] then
@@ -1125,14 +1093,11 @@ local function startTeleportLoop(worldName, targetPosition, getDelayFunction, is
     activeTeleportTasks[worldName] = taskId
 end
 
--- СОЗДАЕМ ВКЛАДКУ TELEPORT
 local teleportTab = Lib:CreateTab("TELEPORT", "🌍")
 
--- МИР 1
 local world1Section = teleportTab:CreateSection("🌲 МИР 1")
 local world1Active = false
 local world1Delay = 5
-
 world1Section:CreateToggle("Активная телепортация", false, function(state)
     world1Active = state
     if state then
@@ -1143,7 +1108,6 @@ world1Section:CreateToggle("Активная телепортация", false, f
         Lib:Notify("Мир 1", "Телепортация остановлена.", "info")
     end
 end)
-
 world1Section:CreateSlider("Интервал (сек)", 1, 30, world1Delay, function(value)
     world1Delay = value
     if world1Active then
@@ -1151,7 +1115,6 @@ world1Section:CreateSlider("Интервал (сек)", 1, 30, world1Delay, func
         startTeleportLoop("World1", Vector3.new(5140.46, 26.09, 6.52), function() return world1Delay end, function() return world1Active end)
     end
 end)
-
 world1Section:CreateButton("Телепортироваться один раз", function()
     local char = LocalPlayer.Character
     if char and char:FindFirstChild("HumanoidRootPart") then
@@ -1160,11 +1123,9 @@ world1Section:CreateButton("Телепортироваться один раз",
     end
 end)
 
--- МИР 2
 local world2Section = teleportTab:CreateSection("🏙️ МИР 2")
 local world2Active = false
 local world2Delay = 5
-
 world2Section:CreateToggle("Активная телепортация", false, function(state)
     world2Active = state
     if state then
@@ -1175,7 +1136,6 @@ world2Section:CreateToggle("Активная телепортация", false, f
         Lib:Notify("Мир 2", "Телепортация остановлена.", "info")
     end
 end)
-
 world2Section:CreateSlider("Интервал (сек)", 1, 30, world2Delay, function(value)
     world2Delay = value
     if world2Active then
@@ -1183,7 +1143,6 @@ world2Section:CreateSlider("Интервал (сек)", 1, 30, world2Delay, func
         startTeleportLoop("World2", Vector3.new(4070.87, 66.52, -107.37), function() return world2Delay end, function() return world2Active end)
     end
 end)
-
 world2Section:CreateButton("Телепортироваться один раз", function()
     local char = LocalPlayer.Character
     if char and char:FindFirstChild("HumanoidRootPart") then
@@ -1192,11 +1151,9 @@ world2Section:CreateButton("Телепортироваться один раз",
     end
 end)
 
--- МИР 3
 local world3Section = teleportTab:CreateSection("🏰 МИР 3")
 local world3Active = false
 local world3Delay = 5
-
 world3Section:CreateToggle("Активная телепортация", false, function(state)
     world3Active = state
     if state then
@@ -1207,7 +1164,6 @@ world3Section:CreateToggle("Активная телепортация", false, f
         Lib:Notify("Мир 3", "Телепортация остановлена.", "info")
     end
 end)
-
 world3Section:CreateSlider("Интервал (сек)", 1, 30, world3Delay, function(value)
     world3Delay = value
     if world3Active then
@@ -1215,7 +1171,6 @@ world3Section:CreateSlider("Интервал (сек)", 1, 30, world3Delay, func
         startTeleportLoop("World3", Vector3.new(938.97, 215.38, 701.07), function() return world3Delay end, function() return world3Active end)
     end
 end)
-
 world3Section:CreateButton("Телепортироваться один раз", function()
     local char = LocalPlayer.Character
     if char and char:FindFirstChild("HumanoidRootPart") then
@@ -1224,158 +1179,62 @@ world3Section:CreateButton("Телепортироваться один раз",
     end
 end)
 
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local UIS = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
+-- ========== HEALTH PER CLICK ==========
+local healthTab = Lib:CreateTab("HEAL CLICK", "❤️")
+local healthSection = healthTab:CreateSection("💉 ЛЕЧЕНИЕ ПО КЛИКУ")
 
-local C = {
-    win = Color3.fromRGB(13, 15, 20),
-    sidebar = Color3.fromRGB(10, 11, 16),
-    card = Color3.fromRGB(20, 22, 30),
-    cardHov = Color3.fromRGB(26, 29, 40),
-    item = Color3.fromRGB(17, 19, 26),
-    itemHov = Color3.fromRGB(24, 27, 37),
-    border = Color3.fromRGB(38, 42, 58),
-    accent = Color3.fromRGB(124, 111, 247),
-    accentHov = Color3.fromRGB(150, 138, 255),
-    accentDim = Color3.fromRGB(80, 70, 180),
-    txt = Color3.fromRGB(228, 228, 240),
-    txtDim = Color3.fromRGB(110, 115, 140),
-    txtMid = Color3.fromRGB(170, 172, 195),
-    red = Color3.fromRGB(220, 60, 60),
-    redHov = Color3.fromRGB(245, 80, 80),
-    green = Color3.fromRGB(72, 199, 142),
-    trackOff = Color3.fromRGB(45, 48, 65),
-    white = Color3.new(1, 1, 1),
-}
+local hpPerClick = 10
+local hpActive = false
+local clickConnection = nil
 
--- ВСЕ ТВОИ ФУНКЦИИ МЕНЮ (corner, stroke, pad, vlist, label и т.д.)
--- (я не буду их тут переписывать, они у тебя уже есть)
-
--- ТЕЛЕПОРТАЦИЯ
-local activeTeleportTasks = {}
-local function stopTeleportForWorld(worldName)
-    if activeTeleportTasks[worldName] then
-        task.cancel(activeTeleportTasks[worldName])
-        activeTeleportTasks[worldName] = nil
+local function healPlayer()
+    local char = LocalPlayer.Character
+    if char then
+        local humanoid = char:FindFirstChild("Humanoid")
+        if humanoid then
+            local newHealth = math.min(humanoid.MaxHealth, humanoid.Health + hpPerClick)
+            humanoid.Health = newHealth
+            Lib:Notify("Лечение", "+" .. hpPerClick .. " HP", "success")
+        end
     end
 end
 
-local function startTeleportLoop(worldName, targetPosition, getDelayFunction, isActiveFunction)
-    stopTeleportForWorld(worldName)
-    local taskId = task.spawn(function()
-        while true do
-            if not isActiveFunction() then break end
-            task.wait(getDelayFunction())
-            if not isActiveFunction() then break end
-            local char = LocalPlayer.Character
-            if char and char:FindFirstChild("HumanoidRootPart") then
-                char.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+local function startHealing()
+    if clickConnection then return end
+    clickConnection = UIS.InputBegan:Connect(function(input, gp)
+        if gp then return end
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            if hpActive then
+                healPlayer()
             end
         end
     end)
-    activeTeleportTasks[worldName] = taskId
 end
 
--- СОЗДАЕМ ВКЛАДКУ TELEPORT
-local teleportTab = Lib:CreateTab("TELEPORT", "🌍")
+local function stopHealing()
+    if clickConnection then
+        clickConnection:Disconnect()
+        clickConnection = nil
+    end
+end
 
--- МИР 1
-local world1Section = teleportTab:CreateSection("🌲 МИР 1")
-local world1Active = false
-local world1Delay = 5
-
-world1Section:CreateToggle("Активная телепортация", false, function(state)
-    world1Active = state
+healthSection:CreateToggle("Включить лечение по клику", false, function(state)
+    hpActive = state
     if state then
-        startTeleportLoop("World1", Vector3.new(5140.46, 26.09, 6.52), function() return world1Delay end, function() return world1Active end)
-        Lib:Notify("Мир 1", "Телепортация запущена!", "success")
+        startHealing()
+        Lib:Notify("Health Per Click", "Активировано! +" .. hpPerClick .. " HP за клик", "success")
     else
-        stopTeleportForWorld("World1")
-        Lib:Notify("Мир 1", "Телепортация остановлена.", "info")
+        stopHealing()
+        Lib:Notify("Health Per Click", "Деактивировано", "info")
     end
 end)
 
-world1Section:CreateSlider("Интервал (сек)", 1, 30, world1Delay, function(value)
-    world1Delay = value
-    if world1Active then
-        stopTeleportForWorld("World1")
-        startTeleportLoop("World1", Vector3.new(5140.46, 26.09, 6.52), function() return world1Delay end, function() return world1Active end)
-    end
+healthSection:CreateSlider("Количество HP за клик", 1, 100, hpPerClick, function(value)
+    hpPerClick = value
 end)
 
-world1Section:CreateButton("Телепортироваться один раз", function()
-    local char = LocalPlayer.Character
-    if char and char:FindFirstChild("HumanoidRootPart") then
-        char.HumanoidRootPart.CFrame = CFrame.new(5140.46, 26.09, 6.52)
-        Lib:Notify("Мир 1", "Телепортация выполнена!", "info")
-    end
-end)
-
--- МИР 2
-local world2Section = teleportTab:CreateSection("🏙️ МИР 2")
-local world2Active = false
-local world2Delay = 5
-
-world2Section:CreateToggle("Активная телепортация", false, function(state)
-    world2Active = state
-    if state then
-        startTeleportLoop("World2", Vector3.new(4070.87, 66.52, -107.37), function() return world2Delay end, function() return world2Active end)
-        Lib:Notify("Мир 2", "Телепортация запущена!", "success")
-    else
-        stopTeleportForWorld("World2")
-        Lib:Notify("Мир 2", "Телепортация остановлена.", "info")
-    end
-end)
-
-world2Section:CreateSlider("Интервал (сек)", 1, 30, world2Delay, function(value)
-    world2Delay = value
-    if world2Active then
-        stopTeleportForWorld("World2")
-        startTeleportLoop("World2", Vector3.new(4070.87, 66.52, -107.37), function() return world2Delay end, function() return world2Active end)
-    end
-end)
-
-world2Section:CreateButton("Телепортироваться один раз", function()
-    local char = LocalPlayer.Character
-    if char and char:FindFirstChild("HumanoidRootPart") then
-        char.HumanoidRootPart.CFrame = CFrame.new(4070.87, 66.52, -107.37)
-        Lib:Notify("Мир 2", "Телепортация выполнена!", "info")
-    end
-end)
-
--- МИР 3
-local world3Section = teleportTab:CreateSection("🏰 МИР 3")
-local world3Active = false
-local world3Delay = 5
-
-world3Section:CreateToggle("Активная телепортация", false, function(state)
-    world3Active = state
-    if state then
-        startTeleportLoop("World3", Vector3.new(938.97, 215.38, 701.07), function() return world3Delay end, function() return world3Active end)
-        Lib:Notify("Мир 3", "Телепортация запущена!", "success")
-    else
-        stopTeleportForWorld("World3")
-        Lib:Notify("Мир 3", "Телепортация остановлена.", "info")
-    end
-end)
-
-world3Section:CreateSlider("Интервал (сек)", 1, 30, world3Delay, function(value)
-    world3Delay = value
-    if world3Active then
-        stopTeleportForWorld("World3")
-        startTeleportLoop("World3", Vector3.new(938.97, 215.38, 701.07), function() return world3Delay end, function() return world3Active end)
-    end
-end)
-
-world3Section:CreateButton("Телепортироваться один раз", function()
-    local char = LocalPlayer.Character
-    if char and char:FindFirstChild("HumanoidRootPart") then
-        char.HumanoidRootPart.CFrame = CFrame.new(938.97, 215.38, 701.07)
-        Lib:Notify("Мир 3", "Телепортация выполнена!", "info")
-    end
+healthSection:CreateButton("Вылечиться один раз", function()
+    healPlayer()
 end)
 
 return Lib
