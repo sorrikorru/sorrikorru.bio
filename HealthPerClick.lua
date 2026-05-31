@@ -178,7 +178,7 @@ TitleLbl.Size = UDim2.new(1, -200, 1, 0)
 TitleLbl.ZIndex = 5
 
 local VerBadge = Instance.new("Frame")
-VerBadge.Size = UDim2.new(0, 28, 0, 16)
+VerBadge.Size = UDim2.new(0, 40, 0, 16)
 VerBadge.Position = UDim2.new(0, 38 + 90, 0.5, -8)
 VerBadge.BackgroundColor3 = C.accent
 VerBadge.BackgroundTransparency = 0.7
@@ -186,7 +186,7 @@ VerBadge.BorderSizePixel = 0
 VerBadge.ZIndex = 5
 VerBadge.Parent = TB
 corner(VerBadge, 4)
-local VerTxt = label(VerBadge, "v.0", Enum.Font.GothamBold, 9, C.accent)
+local VerTxt = label(VerBadge, "v.0.5", Enum.Font.GothamBold, 9, C.accent)
 VerTxt.Size = UDim2.new(1, 0, 1, 0)
 VerTxt.ZIndex = 6
 VerTxt.TextXAlignment = Enum.TextXAlignment.Center
@@ -237,7 +237,6 @@ CloseBtn.MouseButton1Click:Connect(function()
     end)
 end)
 
--- Новая система перемещения
 local dragging = false
 local dragInput = nil
 local dragStart = nil
@@ -303,7 +302,6 @@ UIS.InputChanged:Connect(function(input)
     end
 end)
 
--- Toggle shortcut
 UIS.InputBegan:Connect(function(inp, gp)
     if gp then return end
     if inp.KeyCode ~= Enum.KeyCode.LeftShift then return end
@@ -1179,9 +1177,9 @@ world3Section:CreateButton("Телепортироваться один раз",
     end
 end)
 
--- ========== HEALTH PER CLICK ==========
+-- ========== HEALTH PER CLICK (ЛЕЧЕНИЕ ПО КЛИКУ) ==========
 local healthTab = Lib:CreateTab("HEAL CLICK", "❤️")
-local healthSection = healthTab:CreateSection("💉 ЛЕЧЕНИЕ ПО КЛИКУ")
+local healthSection = healthTab:CreateSection("💉 ЛЕЧЕНИЕ")
 
 local hpPerClick = 10
 local hpActive = false
@@ -1194,7 +1192,7 @@ local function healPlayer()
         if humanoid then
             local newHealth = math.min(humanoid.MaxHealth, humanoid.Health + hpPerClick)
             humanoid.Health = newHealth
-            Lib:Notify("Лечение", "+" .. hpPerClick .. " HP", "success")
+            Lib:Notify("❤️ Лечение", "+" .. hpPerClick .. " HP", "success")
         end
     end
 end
@@ -1222,10 +1220,10 @@ healthSection:CreateToggle("Включить лечение по клику", fa
     hpActive = state
     if state then
         startHealing()
-        Lib:Notify("Health Per Click", "Активировано! +" .. hpPerClick .. " HP за клик", "success")
+        Lib:Notify("❤️ Health Per Click", "Активировано! +" .. hpPerClick .. " HP за клик", "success")
     else
         stopHealing()
-        Lib:Notify("Health Per Click", "Деактивировано", "info")
+        Lib:Notify("❤️ Health Per Click", "Деактивировано", "info")
     end
 end)
 
